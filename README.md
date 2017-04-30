@@ -6,5 +6,6 @@ Manual entry for labels.  Store in ./lib
 
 mkdir -p ./lib  
 echo "{}" > ./lib/training_data.json  
+echo "{}" > ./lib/response_data.json  
 npm install  
 npm start  
