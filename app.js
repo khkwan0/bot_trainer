@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var fs = require('fs');
 
 var index = require('./routes/index');
+var save_response = require('./routes/save_response');
 var nunjucks = require('nunjucks');
 
 var app = express();
@@ -27,11 +28,21 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
+app.use('/save_response', save_response);
 
 try {
     fs.readFile(path.join(__dirname, '/lib/training_data.json'), 'utf8', (err, data) => {
         if (err) throw err;
         app.set('training_data', JSON.stringify(JSON.parse(data), null, 4).trim());
+    });
+} catch(e) {
+    console.log(e);
+}
+
+try {
+    fs.readFile(path.join(__dirname, '/lib/response_data.json'), 'utf8', (err, data) => {
+        if (err) throw err;
+        app.set('response_data', JSON.stringify(JSON.parse(data), null, 4).trim());
     });
 } catch(e) {
     console.log(e);

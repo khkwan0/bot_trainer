@@ -20,13 +20,30 @@
                 <p>For example: A SENTENCE of "hello how are you" could be have a CLASSIFICATION of "greeting"</p>
             </div>
         </div>
-        <div style="float:left">
+        <div style="float:left;width:37%">
             <h3>Raw training data</h3>
             <pre id="raw">
                 {% if training_data %}
 {{ training_data }}
                 {% endif %}
             </pre>
+        </div>
+        <div style="float:left">
+            <h3>Response Mapping</h3>
+            <h4>Label</h4>
+            <input id="target_label" />
+            <h4>Response</h4>
+            <input id="response" />
+            <div>
+                <button id="save_response">Save</button>
+            </div>
+            <div>
+                <pre id="response_data">
+                    {% if response_data %}
+{{ response_data }}
+                    {% endif %}
+                </pre>
+            </div>
         </div>
         <div style="clear:both"></div>
         <script src="/jquery.js"></script>
@@ -46,6 +63,22 @@
                                 $('#raw').html(data);
                             }
                         );
+                    }
+                });
+
+                $('#save_response').click(function(data) {
+                    var label = $('#target_label').val();
+                    var response = $('#response').val();
+                    if (label && response) {
+                        $.post('/save_response',
+                                {
+                                    'label': label,
+                                    'response': response
+                                },
+                                function(data) {
+                                    $('#response_data').html(data);
+                                }
+                              );
                     }
                 });
             });

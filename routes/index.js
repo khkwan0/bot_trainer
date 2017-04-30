@@ -5,7 +5,7 @@ var path = require('path');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { 'training_data': req.app.get('training_data') });
+  res.render('index', { 'training_data': req.app.get('training_data'), 'response_data': req.app.get('response_data') });
 });
 
 router.post('/', function(req, res, next) {
